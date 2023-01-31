@@ -1,0 +1,578 @@
+import React from 'react'
+import Button from './components/Button'
+// import Head from './components/Head'
+// import Skills from './components/Skills'
+import About from './components/About'
+// import Header from './components/Header'
+
+export default function App() {
+  let age = 25;
+  let dob = 1998;
+  let mass = 65;
+  // const data = {
+  //   welcome : "welcom to react course",
+  //   title : "Educator",
+  //   dob:"19-6-1999"
+  // }
+  const sayHi = ()=>{
+    alert("hi i am a button")
+  }
+  return (
+    <div>
+      {/* <Header name = "Aum" age = "16" profession = "Badminton"/>
+      <Header name = "Yaj" age = "18" profession = "StockBroker"/>
+      <Header name = "Arnav" age = "16" profession = "Buisnessman"/>
+      <Header name = "Shubham" age = "21" profession = "Software Engineer"/> */}
+      <About age = {age} dob = {dob} mass = {mass}/>
+      {/* <Skills skills ={["HTML","CSS","JS","React"]}/>
+      <Skills skills ={["cook","play","swim","code"]}/> */}
+      {/* <Head data = {data}/> */}
+
+      <Button text = "Say Hi" onClick = {sayHi}/>
+    </div>
+  )
+}
+
+
+
+import React, { Component } from 'react'
+
+export default class App extends Component {
+  constructor(){
+    super()
+    this.firstName = React.createRef()
+    this.lastName = React.createRef()
+    this.title = React.createRef()
+    this.country = React.createRef()
+  }
+  submitHandler(event){
+    event.preventDefault()
+    const data = {FName : this.firstName.current.value, 
+      LName : this.lastName.current.value, 
+      Title:this.title.current.value,
+      Country: this.country.current.value}
+  
+    console.log(data)
+} 
+  render() {
+    return (
+      <div>
+        <h1>Form</h1>
+        <form onSubmit={(event)=>{this.submitHandler(event)}}>
+          <input type="text" placeholder = 'Enter first Name' ref={this.firstName}/> <br /><br />
+          <input type="text" placeholder = 'Enter last name' ref={this.lastName}/><br /><br />
+          <input type="text" placeholder = 'Enter title' ref={this.title}/><br /><br />
+          <input type="text" placeholder = 'Enter country' ref={this.country}/><br /><br />
+          <button type = 'submit'>Submit</button>
+        </form>
+      </div>
+    )
+  }
+
+
+}
+
+
+
+import React, { useRef } from 'react'
+
+export default function App() {
+  const inputnameref = useRef()
+  const handlesubmit = (e)=>{
+    e.preventDefault()
+    console.log(inputnameref.current.value)
+  }
+  return (
+    <div>
+      <h1>Uncontrolled fb component</h1>
+      <form onSubmit={(e)=>{handlesubmit(e)}}>
+        <input type="text" placeholder="Enter name" ref = {inputnameref}/>br
+        <br />
+        <button type='submit'>Submit</button>
+      </form>
+    </div>
+  )
+}
+
+
+assignment1 19/1/23
+import React, { Component } from 'react'
+
+export default class App extends Component {
+constructor(props){
+  super(props)
+  this.state = {
+    like : 1,
+    dislike : 1,
+  }
+}
+increment = ()=>{
+  this.setState({
+  like : this.state.like + 1
+  })
+}
+decrement = ()=>{
+  this.setState({
+    dislike:this.state.dislike - 1
+  })
+}
+shouldComponentUpdate(nextProps,nextState){
+  console.log(nextProps,nextState)
+  console.log(nextState.like)
+  console.log(nextState.dislike)
+  if(nextState.like >=20 || nextState.dislike <= -20){
+    return false;
+  }
+  else {
+    return true;
+  }
+  }
+  render() {
+    return (
+      <div>
+        <h1>like : {this.state.like}</h1>
+        <h1>dislike : {this.state.dislike}</h1>
+        <button onClick={this.increment}>Like</button>
+        <button onClick={this.decrement}>Dislike</button>
+      </div>
+    )
+  }
+}
+
+
+
+
+import React, { useReducer } from 'react';
+
+const counterReducer = (state, action) => {
+switch(action.type) {
+case 'increment':
+return { count: state.count + 1 };
+case 'decrement':
+return { count: state.count - 1 };
+case 'reset':
+return { count: 0 };
+case 'add':
+return { count: state.count + action.value };
+case 'subtract':
+return { count: state.count - action.value };
+case 'multiply':
+return { count: state.count * action.value };
+default:
+return state;
+}
+}
+
+export default function App() {
+const [state, dispatch] = useReducer(counterReducer, { count: 0 });
+
+return (
+<div>
+<h1>{state.count}</h1>
+<button onClick={() => dispatch({ type: 'increment' })}>Increment</button>
+<button onClick={() => dispatch({ type: 'decrement' })}>Decrement</button>
+<button onClick={() => dispatch({ type: 'reset' })}>Reset</button>
+<button onClick={() => dispatch({ type: 'add', value: 10 })}>Add 10</button>
+<button onClick={() => dispatch({ type: 'subtract', value: 5 })}>Subtract 5</button>
+<button onClick={() => dispatch({ type: 'multiply', value: 5 })}>multiply 5</button>
+</div>
+);
+}
+
+
+import React, { Component } from 'react'
+
+export default class App extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            colorstyle : 'black'
+        }
+    }
+  render() {
+    return (
+      <div>
+        <h1 style={{color:this.state.colorstyle}}>My name is Shubham Chauhan</h1> <hr />
+        <button onClick={()=>{this.setState({colorstyle : 'red'})}}>Red</button>
+        <button onClick={()=>{this.setState({colorstyle : 'green'})}} >Green</button>
+        <button onClick={()=>{this.setState({colorstyle : 'yellow'})}} >Yellow</button>
+        <button onClick={()=>{this.setState({colorstyle : 'blue'})}} >Blue</button>
+        <button onClick={()=>{this.setState({colorstyle : 'purple'})}} >Purple</button><hr />
+      </div>
+    )
+  }
+}
+
+
+import React from 'react'
+import { useEffect } from 'react' 
+import {useState} from 'react'
+export default function App() {
+const [count, setCount] = useState(0)
+const [name, setName] = useState("Shubham ")
+useEffect(()=>{
+const interval = setInterval(()=>{
+console.log("hello")
+}, 1000);
+return () => clearInterval (interval); }, [count])
+return (
+<div>
+<h1>{count}</h1>
+<h1>{name}</h1>
+<button onClick={() =>setCount(count+1)}>Update count</button> 
+<button onClick={() =>setName("Yaj")}>Update name</button>
+</div>
+)
+}
+
+20/1/23 css cmp1 cmp2
+import React from 'react'
+import Cmp1 from './components/Cmp1'
+import Cmp2 from './components/Cmp2'
+
+export default function App() {
+  return (
+    <div>
+    <Cmp1/>
+    <Cmp2/>
+    </div>
+  )
+}
+
+// toggle btw class ,style
+import React, { Component } from 'react'
+import "./App.css"
+export default class App extends Component {
+    constructor(props){
+        super(props)
+           this.state = {
+               isClassActive : false,
+        }
+    }
+    toggelclass = ()=>{
+        this.setState({
+            isClassActive : !this.state.isClassActive
+        })
+
+    }
+  render() {
+    return (
+      <div className='mainClass'>
+        <h1 className={this.state.isClassActive ? "active" : "adfar"}>Shubhrat</h1>
+        <button onClick={this.toggelclass}>Click me</button>
+      </div>
+    )
+  }
+}
+
+Assignment1
+
+app.JS
+import React, { Component } from 'react'
+import "./App.css"
+export default class App extends Component {
+    constructor(props){
+        super(props)
+           this.state = {
+               currentClass : ""
+        }
+    }
+    blackclass = ()=>{
+        this.setState({
+            currentClass : "black"
+        })
+    }
+    redclass = ()=>{
+        this.setState({
+            currentClass : "red"
+        })
+    }
+
+    greenclass = ()=>{
+        this.setState({
+            currentClass : "green"
+        })
+    }
+
+    yellowclass = ()=>{
+        this.setState({
+            currentClass : "yellow"
+        })
+    }
+
+    blueclass = ()=>{
+        this.setState({
+            currentClass : "blue"
+        })
+    }
+
+  render() {
+    return (
+      <div className='mainClass'>
+        <h1 className={this.state.currentClass}>Shubhrat Tripathi and sons</h1>
+        <p className={this.state.currentClass}>A renowned buisness in Mirzapur. It exports world class furniture to almost 80% of the globe. </p>
+        <button className = "k1" onClick={this.blackclass}>black</button>
+        <button className = "k2" onClick={this.redclass}>red</button>
+        <button className = "k3" onClick={this.greenclass}>green</button>
+        <button className = "k4" onClick={this.yellowclass}>yellow</button>
+        <button className = "k5" onClick={this.blueclass}>blue</button>
+      </div>
+    )
+  }
+}
+app.css
+.black{
+    background-color:black ;
+    color: white;
+}
+.red{
+    background-color: red;
+}
+.green{
+    background-color:green ;
+}
+.yellow{
+    background-color: yellow;
+}
+.blue{
+    background-color:blue ;
+}
+
+.k1{
+    background-color: black;
+    color: white;
+}
+.k2{
+    background-color: red;
+}
+.k3{
+    background-color: green;
+}
+.k4{
+    background-color: yellow;
+}
+.k5{
+    background-color: blue;
+}
+
+import React from 'react'
+import { useCallback } from 'react'
+import { useState } from 'react'
+
+const x = new Set() 
+
+export default function App() {
+    const [count,setCount] = useState(0)
+    const [number,setNumber] = useState(0)
+    const incrementCounter = useCallback(()=>{
+        setCount(count + 1)
+    },[count])
+    const decrementCounter = useCallback(()=>{
+        setCount(count - 1)
+    },[count])
+    const incrementNumber = useCallback(()=>{
+        setNumber(number + 1)
+    },[number])
+    x.add(incrementCounter)
+    x.add(decrementCounter)
+    x.add(incrementNumber)
+    alert(x.size)
+  return (
+    <div>
+        count : {count}
+        <button onClick={incrementCounter}>Increment Counter</button>
+        <button onClick={decrementCounter}>Decrement Counter</button>
+        <button onClick={incrementNumber}>Increment Number : {number}</button>
+    </div>
+  )
+  
+}
+
+
+7/1/23
+import React, { useState } from 'react'
+
+export default function App() {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const handle = ()=>{
+    localStorage.setItem('Name',name)
+    localStorage.setItem('Email',email)
+  }
+  const remove = ()=> {
+    localStorage.removeItem('Name')
+    localStorage.removeItem('Email')
+
+  }
+  return (
+    <div>
+      <h1>Name of the user : </h1>
+      <input type="text" placeholder='Name' onChange={(e) =>setName(e.target.value)} value ={name}/>
+      <h1>Email of the user : </h1>
+      <input type="email" placeholder='Email' onChange={(e) =>setEmail(e.target.value)}  value = {email}/> <br /><br />
+      <button onClick={handle}>Login</button>
+      <div>
+        {localStorage.getItem('Name') && (
+          <div>
+            Name : <h1> {localStorage.getItem('Name')}</h1>
+          </div>
+        )}
+        {localStorage.getItem('Email') && (
+          <div>
+            Password : <h1>{localStorage.getItem('Email')}</h1>
+          </div>
+        )}
+      </div>
+      <button onClick={remove}>Remove</button>
+    </div>
+  )
+}
+
+
+import React, { useState } from 'react'
+
+export default function App() {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [isloggedIn, setIsloggedIn] = useState('')
+
+  const login = ()=>{
+  
+    const userData = {
+      name,
+      email,
+      password
+    }
+    localStorage.setItem('Token-Info',JSON.stringify(userData))
+    setName('')
+    setEmail('')
+    setPassword('')
+    setIsloggedIn(false)
+    
+  }
+
+  const logout = ()=>{
+    localStorage.removeItem('Token-Info')
+    setIsloggedIn(true)
+  }
+  
+  return (
+    <div>
+      <h1>This is React Local Storage </h1>
+      {isloggedIn ? (
+        <>
+        <input type="text" value = {name} placeholder= "name " onChange={(e) =>{setName(e.target.value)}} />
+        <input type="email" value = {email} placeholder= "Email " onChange={(e) =>{setEmail(e.target.value)}} />
+        <input type="passord" value = {password} placeholder= "Password " onChange={(e) =>{setPassword(e.target.value)}} />
+        <button type ="submit"onClick={() =>{login()}}>Go</button>
+        </>
+      ) : (
+        <>
+        <h1>User is logged in </h1>
+        <button onClick={logout}>Logout user</button>
+        </>
+      )}
+    </div>
+  )
+}
+
+
+import React, { useState } from 'react'
+
+export default function App() {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [isloggedIn, setIsloggedIn] = useState('')
+
+  const login = ()=>{
+  
+    const userData = {
+      name,
+      email,
+      password,
+    }
+    localStorage.setItem('Token-Info',JSON.stringify(userData))
+    setName('')
+    setEmail('')
+    setPassword('')
+    setIsloggedIn(false)
+    
+  }
+
+  const logout = ()=>{
+    localStorage.removeItem('Token-Info')
+    setIsloggedIn(true)
+  }
+  
+  return (
+    <div>
+      <h1>This is React Local Storage </h1>
+      {isloggedIn ? (
+        <>
+        <input type="text" value = {name} placeholder= "name " onChange={(e) =>{setName(e.target.value)}} />
+        <input type="email" value = {email} placeholder= "Email " onChange={(e) =>{setEmail(e.target.value)}} />
+        <input type="passord" value = {password} placeholder= "Password " onChange={(e) =>{setPassword(e.target.value)}} />
+        <button type ="submit"onClick={() =>{login()}}>Go</button>
+        </>
+      ) : (
+        <>
+        <h1>User is logged in </h1>
+        <button onClick={logout}>Logout user</button>
+        </>
+      )}
+    </div>
+  )
+}
+
+
+import React, { useState } from 'react'
+// import useCounter from './custom-hooks/useCounter'
+import useList from './custom-hooks/useList'
+
+export default function App() {
+  // const { count, increment, decrement } = useCounter()
+  const { list, push, pull } = useList()
+  const [ todo, setTodo] = useState()
+  document.body.style.backgroundColor = "#021f36"
+  document.body.style.color = "white"
+
+
+  const onsubmithandler = (event)=>{
+    event.preventDefault()
+    push(todo)
+    setTodo("")
+  }
+
+  return (
+    <>
+    <h1 className='container my-3'>List of Students</h1>
+    {/* <div>
+      <h1>{count}</h1>
+      <button onClick={increment}>Add</button>
+      <button onClick={decrement}>Sub</button>
+    </div> */}
+    <div className='container my-3'>
+      <header>
+        <form onSubmit={(onsubmithandler)}>
+          <label className='my-3 mx-3'><b>Add Todo </b></label>
+          <input type="text" value = {todo} onChange = {(e)=>{setTodo(e.target.value)}} />
+          <button className = "btn btn-primary mx-3"type='submit'>Add todo</button>
+        </form>
+        
+        <h3>
+        {list.map((listItem, index) =>{
+            return (
+            <div className = "my-3"key={index} >
+              <li>{listItem}</li>
+              <button className = "btn btn-primary" onClick={() => { pull(index) }}>Remove</button>
+            </div>
+            )
+          })} 
+        </h3>
+      </header>
+    </div>
+    </>
+  )
+}
