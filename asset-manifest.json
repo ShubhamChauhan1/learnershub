@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/learnershub/static/css/main.e6c13ad2.css",
+    "main.js": "/learnershub/static/js/main.df920c40.js",
+    "static/js/787.bb2491c6.chunk.js": "/learnershub/static/js/787.bb2491c6.chunk.js",
+    "index.html": "/learnershub/index.html",
+    "main.e6c13ad2.css.map": "/learnershub/static/css/main.e6c13ad2.css.map",
+    "main.df920c40.js.map": "/learnershub/static/js/main.df920c40.js.map",
+    "787.bb2491c6.chunk.js.map": "/learnershub/static/js/787.bb2491c6.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.df920c40.js"
+  ]
+}
